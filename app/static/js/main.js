@@ -3,6 +3,7 @@ const mathInput = document.getElementById("math-grade");
 const naturalInput = document.getElementById("natural-grade");
 const socialInput = document.getElementById("social-grade");
 
+let gradesSubmited = false;
 mathInput.addEventListener('change', (event) => {
     validateGrade(mathInput);
 });
@@ -81,6 +82,8 @@ function uploadGrades_pressed() {
 
     // Once submitted clear input fields
     cleanForm();
+
+    gradesSubmited = true;
 }
 
 /**
@@ -90,27 +93,25 @@ function uploadGrades_pressed() {
 function validateGrade(inputField) {
 
     let gradeValue = inputField.value;
-
-    if (gradeValue < 0 || gradeValue > 100 || isNaN(gradeValue)) {
+    //ADDED
+    //Check if the input is a number, is not empty and doesn't have
+    //invalid characters, is in range from 0 to 100
+    const isNumberOoR_OrIsNaN = gradeValue < 0 || gradeValue > 100 || isNaN(gradeValue);
+    const isEmpty = (!gradeValue || gradeValue.trim() === "")
+    
+    if (isNumberOoR_OrIsNaN || isEmpty) {
         // Case invalid
         inputField.classList.add('is-invalid');
         inputField.classList.remove('is-valid');
+        inputField.classList.remove('empty');
     } else {
         // Case valid
         inputField.classList.add('is-valid');
         inputField.classList.remove('is-invalid');
+        inputField.classList.remove('empty');
     }
 
-    // Enable upload grades button only when all fields are valid
-    if (mathInput.classList.contains('is-invalid') ||
-        naturalInput.classList.contains('is-invalid') ||
-        naturalInput.classList.contains('is-invalid')) {
-        // Diable the grades button
-        document.getElementById('btn-grades').classList.add('disabled');
-    } else {
-        // Enable the grades button
-        document.getElementById('btn-grades').classList.remove('disabled');
-    }
+    enableOrDisableBTN_Grade();
 }
 
 /**
@@ -141,12 +142,15 @@ function uploadPreferences_pressed() {
 }
 
 function resetBtn_pressed() {
-    // Enable grades button
-    document.getElementById("btn-grades").classList.remove('disabled');
+    cleanProject();
+    
+    gradesSubmited = false;
+    if(!document.getElementById("btn-grades").classList.contains('disabled')){
+        document.getElementById("btn-grades").classList.add('disabled');
+    }
+    
     // Disable preferences button
     document.getElementById("btn-preferences").classList.add('disabled');
-
-    cleanProject();
 }
 
 /**
@@ -333,10 +337,16 @@ function cleanProject() {
 function cleanForm() {
     mathInput.classList.remove("is-valid");
     mathInput.classList.remove("is-invalid");
+    mathInput.classList.add("empty");
+    mathInput.value = "";
     naturalInput.classList.remove("is-valid");
     naturalInput.classList.remove("is-invalid");
+    naturalInput.classList.add("empty");
+    naturalInput.value = "";
     socialInput.classList.remove("is-valid");
     socialInput.classList.remove("is-invalid");
+    socialInput.classList.add("empty");
+    socialInput.value = "";
 }
 
 /**
@@ -346,5 +356,26 @@ function cleanForm() {
 function removeChilds(docElement) {
     while (docElement.firstChild) {
         docElement.removeChild(docElement.lastChild);
+    }
+}
+
+
+//ADDED
+function checkAllFieldTextsAreNotValid() {
+    const mathIsNotValid = mathInput.classList.contains('is-invalid') || mathInput.classList.contains('empty')
+    const naturalIsNotValid = naturalInput.classList.contains('is-invalid') || naturalInput.classList.contains('empty')
+    const socialIsNotValid = socialInput.classList.contains('is-invalid') || socialInput.classList.contains('empty')
+    return mathIsNotValid || naturalIsNotValid || socialIsNotValid
+}
+
+function enableOrDisableBTN_Grade() {
+    // Enable upload grades button only when all fields are valid
+    if (checkAllFieldTextsAreNotValid() || gradesSubmited === true) {
+        // Disable the grades button
+        document.getElementById('btn-grades').classList.add('disabled');
+    } else {
+        // Enable the grades button
+        console.log("Se habilita boton de subir grados!");
+        document.getElementById('btn-grades').classList.remove('disabled');
     }
 }
