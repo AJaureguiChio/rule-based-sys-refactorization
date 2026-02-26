@@ -51,7 +51,7 @@
           <div class="col-sm-8">
             <div class="input-group mb-3">
                 <span class="input-group-text">Mathematics:</span>
-                <input type="text" class="form-control is-valid" placeholder="Your grade." id="math-grade">
+                <input type="text" class="form-control empty" placeholder="Your grade." id="math-grade">
                 <span class="input-group-text">/100</span>
             </div>
           </div>
@@ -59,7 +59,7 @@
           <div class="col-sm-8">
             <div class="input-group mb-3">
                 <span class="input-group-text">Natural Sciences:</span>
-                <input type="text" class="form-control" placeholder="Your grade." id="natural-grade">
+                <input type="text" class="form-control empty" placeholder="Your grade." id="natural-grade">
                 <span class="input-group-text">/100</span>
             </div>
           </div>
@@ -67,14 +67,15 @@
           <div class="col-sm-8">
             <div class="input-group mb-3">
                 <span class="input-group-text">Social Sciences:</span>
-                <input type="text" class="form-control" placeholder="Your grade." id="social-grade">
+                <input type="text" class="form-control empty" placeholder="Your grade." id="social-grade">
                 <span class="input-group-text">/100</span>
             </div>
           </div>
           <div class="col-sm-4" id="social-cat"></div>
         </form> <!-- SABER 11 INPUT -->
         <div class="d-grid gap-2 d-md-block justify-content-md">
-          <button type="button" class="btn btn-primary me-md-2" id="btn-grades" onclick="uploadGrades_pressed()">Upload grades</button>
+          <!--Se añadio 'diabled' al boton de subir calificaciones-->
+          <button type="button" class="btn btn-primary me-md-2 disabled" id="btn-grades" onclick="uploadGrades_pressed()">Upload grades</button>
         </div>
       </div> <!-- SABER 11 SECTION -->
 

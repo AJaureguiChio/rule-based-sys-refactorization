@@ -85,7 +85,7 @@ class CareerRecommend(KnowledgeEngine):
     """ MATH CATEGORIES """
 
     """ If the student got less than 40 in math, he belongs to category 'A' in math. """
-    @Rule(Saber11(math=P(lambda x: x < 40)))
+    @Rule(Saber11(math=P(lambda x: x <= 40)))
     def math_cat_a(self):
         self.math_cat = 'A'
         self.msg_buffer.append("Category 'A' in math.")
@@ -115,7 +115,7 @@ class CareerRecommend(KnowledgeEngine):
     """ NATURAL SCIENCES CATEGORIES """
 
     """ If the student got less than 40 in Natural Sciences, he belongs to category 'A' in Natural Sciences. """
-    @Rule(Saber11(natural=P(lambda x: x < 40)))
+    @Rule(Saber11(natural=P(lambda x: x <= 40)))
     def natural_cat_a(self):
         self.natural_cat = 'A'
         self.msg_buffer.append("Category 'A' in Natural Sciences.")
