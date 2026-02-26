@@ -94,12 +94,11 @@ function validateGrade(inputField) {
 
     let gradeValue = inputField.value;
     //ADDED
-    //Check if the input is a number, is not empty and doesn't have
-    //invalid characters, is in range from 0 to 100
-    const isNumberOoR_OrIsNaN = gradeValue < 0 || gradeValue > 100 || isNaN(gradeValue);
+    //Check if Input is a number, is between 0 to 100 and is not empty
+    const numberIsOoR_NaN = gradeValue < 0 || gradeValue > 100 || isNaN(gradeValue);
     const isEmpty = (!gradeValue || gradeValue.trim() === "")
     
-    if (isNumberOoR_OrIsNaN || isEmpty) {
+    if (numberIsOoR_NaN || isEmpty) {
         // Case invalid
         inputField.classList.add('is-invalid');
         inputField.classList.remove('is-valid');
